@@ -2,6 +2,7 @@
   "name": "dynamodbdown",
   "description": "A LevelDOWN API implementation on Amazon DynamoDB",
   "main": "index.js",
+  "version": "0.0.1",
   "scripts": {
     "lint": "standard",
     "test": "npm run lint && tape test | tap-spec",
