@@ -38,7 +38,7 @@ DynamoDBIterator.prototype._next = function (cb) {
     cb()
   } else if (obj === null) {
     this._results.once('readable', onReadable)
-    this._results.once('end', onEnd)
+    // this._results.once('end', onEnd)
   } else {
     if (this.valueAsBuffer === false) {
       obj.value = obj.value.toString()
