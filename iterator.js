@@ -34,15 +34,8 @@ DynamoDBIterator.prototype._next = function (cb) {
 
   const obj = this._results.read()
 
-  if (this._endEmitted) {
-    cb()
-  } else if (obj === null) {
-    this._results.once('readable', onReadable)
-    this._results.once('end', () => {
-    	setTimeout (() => onEnd (), 100);
-    })
-  } else {
-    if (this.valueAsBuffer === false) {
+  if (obj !== null) {
+  	if (this.valueAsBuffer === false) {
       obj.value = obj.value.toString()
     }
 
@@ -51,6 +44,17 @@ DynamoDBIterator.prototype._next = function (cb) {
     }
 
     cb(null, obj.key, obj.value)
+
+    if (this._endEmitted) {
+    	cb()
+    }
+  } else if (this._endEmitted) {
+    cb()
+  } else if (obj === null) {
+    this._results.once('readable', onReadable)
+    this._results.once('end', () => {
+    	setTimeout (() => onEnd (), 100);
+    })
   }
 }
 
